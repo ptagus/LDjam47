@@ -5,10 +5,12 @@ using UnityEngine;
 public class RoomMove : MonoBehaviour
 {
     public GameObject Rooms, prefab;
+    GameObject newroom;
     Vector3 destinate;
     public float speed = 1.0F;
     private float startTime;
-    bool stop = true;
+    [HideInInspector]
+    public bool stop = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +19,6 @@ public class RoomMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)  && stop)
-        {
-            stop = false;
-            setDestinationPosition();
-        }
-
         if (!stop)
         {
             float distCovered = (Time.time - startTime) * speed;
@@ -30,8 +26,7 @@ public class RoomMove : MonoBehaviour
             transform.position = Vector3.Lerp(Rooms.transform.position, destinate, fractionOfJourney);
             float distanse = Vector3.Distance(transform.position, destinate);
             if (distanse < 0.001f)
-            {
-                createNewRoom();
+            {                
                 deleteOldRoom();
                 Debug.Log(distanse);
                 stop = true;
@@ -42,18 +37,19 @@ public class RoomMove : MonoBehaviour
     public void setDestinationPosition()
     {
         startTime = Time.time;
-
         destinate = Rooms.transform.position - new Vector3(40, 0, 0);
     }
 
     public void createNewRoom()
     {
         Vector3 newPos = prefab.transform.position + new Vector3(40, 0, 0);
-        Instantiate(prefab, newPos, Quaternion.identity, Rooms.transform);
+        newroom =  Instantiate(prefab, newPos, Quaternion.identity, Rooms.transform);
+        
     }
 
     public void deleteOldRoom()
     {
         Destroy(transform.GetChild(0).gameObject);
+        newroom.GetComponent<OpenDoorAnimation>().enabled = true;
     }
 }

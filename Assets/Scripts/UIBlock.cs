@@ -4,17 +4,28 @@ using UnityEngine;
 using UnityEditor.UI;
 using UnityEngine.EventSystems;
 using System.Security.Cryptography.X509Certificates;
+using System.Security;
 
 public class UIBlock : MonoBehaviour
 {
     public GameObject showpanel, showhintpanel;
+    public RoomMove Rmove;
     public MoveController player;
-    bool showhint;
+    bool showhint, walkfromdoor;
+
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) &&showhint)
+        if (Input.GetKeyDown(KeyCode.E) && showhint)
         {
             ShowItem();
+        }
+        if (Input.GetKeyDown(KeyCode.S) && walkfromdoor)
+        {
+            player.gameObject.SetActive(false);
+            Rmove.createNewRoom();
+            Rmove.setDestinationPosition();
+            Rmove.stop = false;
         }
     }
 
@@ -39,6 +50,12 @@ public class UIBlock : MonoBehaviour
     {
         showhint = hintnow;
         showhintpanel.SetActive(hintnow);
+    }
+
+    public void WalkDoor(bool WalkEnable)
+    {
+        walkfromdoor = WalkEnable;
+        Rmove = GetComponentInParent<RoomMove>();
     }
 
 }

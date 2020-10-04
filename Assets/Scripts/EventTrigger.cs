@@ -8,7 +8,7 @@ public class EventTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,13 +20,27 @@ public class EventTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Enter");
-        panel.SwapBool(true);
+        if (other.gameObject.tag == "Door")
+        {
+            panel.WalkDoor(true);
+        }
+        if (other.gameObject.tag == "Object")
+        {
+            panel.SwapBool(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("Exit");
-        panel.SwapBool(false);
+        if (other.gameObject.tag == "Door")
+        {
+            panel.WalkDoor(false);
+        }
+        if (other.gameObject.tag == "Object")
+        {
+            panel.SwapBool(false);
+        }
 
     }
 }
