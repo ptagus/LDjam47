@@ -4,9 +4,12 @@ using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
 public class MoveController : MonoBehaviour
 {
     public NavMeshAgent nma;
+    public bool block = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +19,7 @@ public class MoveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && block)
         {
             RaycastHit hit;
             if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
@@ -28,5 +31,10 @@ public class MoveController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void blockactive()
+    {
+
     }
 }

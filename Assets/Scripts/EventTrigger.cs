@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventTrigger : MonoBehaviour
 {
-    public GameObject panel;
+    public UIBlock panel;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +20,13 @@ public class EventTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Enter");
-        panel.SetActive(true);
+        panel.SwapBool(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("Exit");
-        panel.SetActive(false);
+        panel.SwapBool(false);
 
     }
 }
