@@ -3,7 +3,17 @@ guid: ff5e7f0353d3cce44a4a2924f369124d
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bank-Safe-Metal
+    second: {fileID: 2100000, guid: e214d4cadc22d544dae9aa451755af12, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bank-Safe-Rubbe
+    second: {fileID: -7117968544735407870, guid: c33802077410bde47b33258c20530eb5, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

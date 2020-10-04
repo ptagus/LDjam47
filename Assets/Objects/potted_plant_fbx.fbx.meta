@@ -3,7 +3,17 @@ guid: 9ee845d96c23f1a4aa820ac33e669397
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leaves_texture
+    second: {fileID: 5629084884208175553, guid: 8aa462d36a46f5549abcc0218efc05f0, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pot_texture
+    second: {fileID: 2100000, guid: 9feb0a6f97a564444a0fb8d6f2292025, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
