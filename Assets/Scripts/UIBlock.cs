@@ -5,14 +5,20 @@ using UnityEditor.UI;
 using UnityEngine.EventSystems;
 using System.Security.Cryptography.X509Certificates;
 using System.Security;
+using UnityEngine.UI;
+using System.Runtime.InteropServices.ComTypes;
 
 public class UIBlock : MonoBehaviour
 {
-    public GameObject showpanel, showhintpanel;
+    public GameObject showpanel, showhintpanel, clockpanel, keypanel;
+    public Text text;
     public RoomMove Rmove;
     public MoveController player;
+    public Dropdown dd;
+    public Dropdown[] key;
     bool showhint, walkfromdoor;
     keysStruct ks;
+    bool isclock, issafe;
     private void Start()
     {
         Rmove = GetComponentInParent<RoomMove>();
@@ -35,6 +41,42 @@ public class UIBlock : MonoBehaviour
 
     public void ShowItem()
     {
+        if (issafe)
+        {
+            keypanel.SetActive(true);
+            showhintpanel.SetActive(false);
+            player.block = false;
+            Time.timeScale = 0;
+            return;
+        }
+        if (isclock)
+        {
+            clockpanel.SetActive(true);
+            showhintpanel.SetActive(false);
+            player.block = false;
+            Time.timeScale = 0;
+            return;
+        }
+        else
+        {
+            RightChoose();
+        }
+    }
+
+    public void RightChoose()
+    {
+        foreach (texts t in Rmove.AllTexts)
+        {
+            if(t.ItemNumber == ks.Number)
+            {
+                if (t.itemNumberiteration == ks.influenceNumber)
+                {
+                    Debug.LogError(ks.influenceNumber + "num: " + ks.needTime);
+                    text.text = t.text;
+                    break;
+                }
+            }
+        }
         showpanel.SetActive(true);
         showhintpanel.SetActive(false);
         player.block = false;
@@ -43,6 +85,35 @@ public class UIBlock : MonoBehaviour
 
     public void AcceptItem()
     {
+        if (isclock)
+        {
+            Time.timeScale = 1;
+            showhintpanel.SetActive(true);
+            clockpanel.SetActive(false);
+            player.block = true;
+            return;
+        }
+        if (issafe)
+        {
+            Time.timeScale = 1;
+            if (CheckKey())
+            {
+                //endgame;
+                Debug.LogError("WINNNN");
+                showhintpanel.SetActive(true);
+                keypanel.SetActive(false);
+                player.block = true;
+                return;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                showhintpanel.SetActive(true);
+                keypanel.SetActive(false);
+                player.block = true;
+                return;
+            }
+        }
         Time.timeScale = 1;
         Debug.LogError(ks.influenceNumber + " ----" + ks.Number);
         Rmove.updateKeysState(ks);
@@ -51,6 +122,16 @@ public class UIBlock : MonoBehaviour
         player.block = true;
     }
 
+    public bool CheckKey()
+    {
+        Debug.LogError(key[0] + "" + key[1] + ""+key[2] + "" + key[3]);
+        if (key[0].value == 2 && key[1].value == 3 && key[2].value == 4 && key[3].value == 5)
+        {
+            return true;
+        }
+        return false;
+
+    }
 
     public void SwapBool(bool hintnow, keysStruct kstrukt)
     {
@@ -63,6 +144,26 @@ public class UIBlock : MonoBehaviour
     {
         walkfromdoor = WalkEnable;
         Rmove = GetComponentInParent<RoomMove>();
+    }
+
+    public void ShowClock(bool clock)
+    {
+        showhint = clock;
+        showhintpanel.SetActive(clock);
+        isclock = clock;
+    }
+
+    public void Dropdown()
+    {
+        Debug.LogError(dd.value);
+        Rmove.nowTime = dd.value;
+    }
+
+    public void ShowSafe(bool safe)
+    {
+        showhint = safe;
+        showhintpanel.SetActive(safe);
+        issafe = true;
     }
 
 }

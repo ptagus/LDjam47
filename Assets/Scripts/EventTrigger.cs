@@ -28,6 +28,14 @@ public class EventTrigger : MonoBehaviour
         {
             panel.SwapBool(true, other.GetComponent<Keys>().Kstruct);
         }
+        if (other.gameObject.tag == "Clock")
+        {
+            panel.ShowClock(true);
+        }
+        if (other.gameObject.tag == "Safe")
+        {
+            panel.ShowSafe(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -41,6 +49,13 @@ public class EventTrigger : MonoBehaviour
         {
             panel.SwapBool(false, other.GetComponent<Keys>().Kstruct);
         }
-
+        if (other.gameObject.tag == "Clock")
+        {
+            panel.ShowClock(false);
+        }
+        if (other.gameObject.tag == "Safe")
+        {
+            panel.ShowSafe(false);
+        }
     }
 }

@@ -8,10 +8,9 @@ using UnityEngine;
 public struct keysStruct
 {
     public int Number;
-    public bool InHands;
     public bool enable;
-    public bool alreadyuse;
     public int influenceNumber;
+    public int needTime;
 }
 
 public class Keys : MonoBehaviour

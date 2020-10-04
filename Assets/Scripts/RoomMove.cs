@@ -2,9 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct texts
+{
+    public string itemName;
+    public int ItemNumber;
+    public string text;
+    public int itemNumberiteration;
+}
+
 public class RoomMove : MonoBehaviour
 {
-    public keysStruct[] allKeys;
+    //public keysStruct[] allKeys;
+    public int nowTime;
+    public texts[] AllTexts;
     public GameObject Rooms, prefab;
     GameObject newroom;
     Vector3 destinate;
