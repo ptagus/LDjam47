@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoomMove : MonoBehaviour
 {
+    public keysStruct[] allKeys;
     public GameObject Rooms, prefab;
     GameObject newroom;
     Vector3 destinate;
@@ -44,12 +45,17 @@ public class RoomMove : MonoBehaviour
     {
         Vector3 newPos = prefab.transform.position + new Vector3(40, 0, 0);
         newroom =  Instantiate(prefab, newPos, Quaternion.identity, Rooms.transform);
-        
     }
 
     public void deleteOldRoom()
     {
         Destroy(transform.GetChild(0).gameObject);
         newroom.GetComponent<OpenDoorAnimation>().enabled = true;
+    }
+
+    public void updateKeysState(keysStruct ks)
+    {
+        myGM my = GetComponent<myGM>();
+        my.allKeys[ks.influenceNumber - 1].enable = true;
     }
 }

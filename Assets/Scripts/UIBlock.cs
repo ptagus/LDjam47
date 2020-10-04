@@ -12,7 +12,11 @@ public class UIBlock : MonoBehaviour
     public RoomMove Rmove;
     public MoveController player;
     bool showhint, walkfromdoor;
-
+    keysStruct ks;
+    private void Start()
+    {
+        Rmove = GetComponentInParent<RoomMove>();
+    }
 
     private void Update()
     {
@@ -40,16 +44,19 @@ public class UIBlock : MonoBehaviour
     public void AcceptItem()
     {
         Time.timeScale = 1;
+        Debug.LogError(ks.influenceNumber + " ----" + ks.Number);
+        Rmove.updateKeysState(ks);
         showhintpanel.SetActive(true);
         showpanel.SetActive(false);
         player.block = true;
     }
 
 
-    public void SwapBool(bool hintnow)
+    public void SwapBool(bool hintnow, keysStruct kstrukt)
     {
         showhint = hintnow;
         showhintpanel.SetActive(hintnow);
+        ks = kstrukt;
     }
 
     public void WalkDoor(bool WalkEnable)

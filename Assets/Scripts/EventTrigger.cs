@@ -26,7 +26,7 @@ public class EventTrigger : MonoBehaviour
         }
         if (other.gameObject.tag == "Object")
         {
-            panel.SwapBool(true);
+            panel.SwapBool(true, other.GetComponent<Keys>().Kstruct);
         }
     }
 
@@ -39,7 +39,7 @@ public class EventTrigger : MonoBehaviour
         }
         if (other.gameObject.tag == "Object")
         {
-            panel.SwapBool(false);
+            panel.SwapBool(false, other.GetComponent<Keys>().Kstruct);
         }
 
     }
