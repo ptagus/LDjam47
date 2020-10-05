@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.UI;
 using UnityEngine.EventSystems;
 using System.Security.Cryptography.X509Certificates;
 using System.Security;
 using UnityEngine.UI;
 using System.Runtime.InteropServices.ComTypes;
+using UnityEngine.SceneManagement;
 
 public class UIBlock : MonoBehaviour
 {
     public GameObject[] alarm;
     public GameObject showpanel, showhintpanel, clockpanel, keypanel;
     public Text text;
+    public Image img;
     public RoomMove Rmove;
     public AnimatePerson player;
     public Dropdown dd;
@@ -74,6 +75,7 @@ public class UIBlock : MonoBehaviour
                 {
                     Debug.LogError(ks.influenceNumber + "num: " + ks.needTime);
                     text.text = t.text;
+                    img.sprite = t.img;
                     break;
                 }
             }
@@ -101,6 +103,7 @@ public class UIBlock : MonoBehaviour
             {
                 //endgame;
                 Debug.LogError("WINNNN");
+                SceneManager.LoadScene(2);
                 showhintpanel.SetActive(true);
                 keypanel.SetActive(false);
                 player.block = true;

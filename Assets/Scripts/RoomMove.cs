@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct texts
@@ -9,6 +10,7 @@ public struct texts
     public int ItemNumber;
     public string text;
     public int itemNumberiteration;
+    public Sprite img;
 }
 
 public class RoomMove : MonoBehaviour
