@@ -34,7 +34,7 @@ public class RoomMove : MonoBehaviour
         if (!stop)
         {
             float distCovered = (Time.time - startTime) * speed;
-            float fractionOfJourney = distCovered / 40;
+            float fractionOfJourney = distCovered / 23.5f;
             transform.position = Vector3.Lerp(Rooms.transform.position, destinate, fractionOfJourney);
             float distanse = Vector3.Distance(transform.position, destinate);
             if (distanse < 0.001f)
@@ -49,12 +49,12 @@ public class RoomMove : MonoBehaviour
     public void setDestinationPosition()
     {
         startTime = Time.time;
-        destinate = Rooms.transform.position - new Vector3(40, 0, 0);
+        destinate = Rooms.transform.position - new Vector3(23.5f, 0, 0);
     }
 
     public void createNewRoom()
     {
-        Vector3 newPos = prefab.transform.position + new Vector3(40, 0, 0);
+        Vector3 newPos = prefab.transform.position + new Vector3(23.5f, 0, 0);
         newroom =  Instantiate(prefab, newPos, Quaternion.identity, Rooms.transform);
     }
 

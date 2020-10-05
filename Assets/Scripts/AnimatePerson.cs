@@ -16,7 +16,7 @@ public class AnimatePerson : MonoBehaviour
     void Start()
     {
         animotor = GetComponent<Animator>();
-        nma.speed = 0.8f;
+        nma.speed = 3f;
     }
 
     // Update is called once per frame
@@ -28,14 +28,14 @@ public class AnimatePerson : MonoBehaviour
             {
                 if (hit.collider.tag != "Finish")
                 {
-                    animotor.SetFloat("InputMagnitude", 0.25f);
                     anitstop = true;
                     nma.destination = hit.point;
+                    animotor.SetFloat("InputMagnitude", 0.45f);
                     Debug.Log(hit.collider.name);
                 }
             }
         }
-        if (Mathf.Abs(Vector3.Distance(transform.position,nma.destination)) < 0.05f && anitstop)
+        if (Mathf.Abs(Vector3.Distance(transform.position,nma.destination)) < 0.1f && anitstop)
         {
             anitstop = false;
             animotor.SetFloat("InputMagnitude", 0f);

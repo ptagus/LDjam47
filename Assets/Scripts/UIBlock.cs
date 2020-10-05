@@ -10,10 +10,11 @@ using System.Runtime.InteropServices.ComTypes;
 
 public class UIBlock : MonoBehaviour
 {
+    public GameObject[] alarm;
     public GameObject showpanel, showhintpanel, clockpanel, keypanel;
     public Text text;
     public RoomMove Rmove;
-    public MoveController player;
+    public AnimatePerson player;
     public Dropdown dd;
     public Dropdown[] key;
     bool showhint, walkfromdoor;
@@ -30,7 +31,7 @@ public class UIBlock : MonoBehaviour
         {
             ShowItem();
         }
-        if (Input.GetKeyDown(KeyCode.S) && walkfromdoor)
+        if (Input.GetKeyDown(KeyCode.E) && walkfromdoor)
         {
             player.gameObject.SetActive(false);
             Rmove.createNewRoom();
@@ -103,10 +104,12 @@ public class UIBlock : MonoBehaviour
                 showhintpanel.SetActive(true);
                 keypanel.SetActive(false);
                 player.block = true;
+                issafe = false;
                 return;
             }
             else
             {
+                issafe = false;
                 Time.timeScale = 1;
                 showhintpanel.SetActive(true);
                 keypanel.SetActive(false);
@@ -116,7 +119,8 @@ public class UIBlock : MonoBehaviour
         }
         Time.timeScale = 1;
         Debug.LogError(ks.influenceNumber + " ----" + ks.Number);
-        Rmove.updateKeysState(ks);
+        if (ks.needTime > 0)
+            Rmove.updateKeysState(ks);
         showhintpanel.SetActive(true);
         showpanel.SetActive(false);
         player.block = true;
@@ -125,7 +129,7 @@ public class UIBlock : MonoBehaviour
     public bool CheckKey()
     {
         Debug.LogError(key[0] + "" + key[1] + ""+key[2] + "" + key[3]);
-        if (key[0].value == 2 && key[1].value == 3 && key[2].value == 4 && key[3].value == 5)
+        if (key[0].value == 4 && key[1].value == 6 && key[2].value == 7 && key[3].value == 5)
         {
             return true;
         }
@@ -138,6 +142,12 @@ public class UIBlock : MonoBehaviour
         showhint = hintnow;
         showhintpanel.SetActive(hintnow);
         ks = kstrukt;
+    }
+
+    public void SwapBool(bool hintnow)
+    {
+        showhint = hintnow;
+        showhintpanel.SetActive(hintnow);
     }
 
     public void WalkDoor(bool WalkEnable)
@@ -157,6 +167,11 @@ public class UIBlock : MonoBehaviour
     {
         Debug.LogError(dd.value);
         Rmove.nowTime = dd.value;
+        foreach (GameObject go in alarm)
+        {
+            go.SetActive(false);
+        }
+        alarm[dd.value].SetActive(true);
     }
 
     public void ShowSafe(bool safe)
